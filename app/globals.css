@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-ink: #050505;
+  --color-ink-2: #0a0a0b;
+  --color-panel: #0e0e10;
+  --color-panel-2: #16161a;
+  --color-line: #ffffff1f;
+  --color-guide: #ffffff38;
+  --color-line-strong: #ffffff38;
+  --color-fg: #f5f5f6;
+  --color-fg-muted: #a1a1a6;
+  --color-fg-dim: #6e6e76;
+  --color-volt: #d8ff3e;
+  --color-volt-dim: #a8c92f;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --shadow-panel: 0 1px 0 0 #ffffff0d inset, 0 24px 60px -30px #000;
+}
+
+:root {
+  color-scheme: dark;
+  --rail: 1px;
+  --frame: 2rem;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-volt);
+  color: #000;
+}
+
+/* ---------------------------------------------------------------- typography */
+
+.h-display {
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.h-section {
+  font-weight: 600;
+  letter-spacing: -0.038em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-fg-dim);
+}
+
+/* -------------------------------------------------------------- page chrome */
+
+/* Dotted rails + crosshair ticks, the structural motif of the whole page.
+   Solid borders are reserved for the outer page frame, the header and cards. */
+.rails {
+  position: relative;
+}
+/* Dots drawn with a gradient rather than `border-style: dotted`, because the
+   browser locks dotted spacing to twice the border width. --guide-pitch is the
+   distance from one dot to the next, so the density is tunable here. */
+:root {
+  --guide-dot: 1px;
+  --guide-pitch: 3px;
+}
+
+.rails::before,
+.rails::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-guide) 0 var(--guide-dot),
+    transparent var(--guide-dot) var(--guide-pitch)
+  );
+  pointer-events: none;
+}
+.rails::before {
+  left: 0;
+}
+.rails::after {
+  right: 0;
+}
+
+/* Horizontal dotted rules, same pitch as the rails. */
+.rule-t,
+.rule-b {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-guide) 0 var(--guide-dot),
+    transparent var(--guide-dot) var(--guide-pitch)
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+}
+.rule-t {
+  background-position: top left;
+}
+.rule-b {
+  background-position: bottom left;
+}
+
+.tick {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--color-line-strong), var(--color-line-strong)) center / 100% 1px no-repeat,
+    linear-gradient(var(--color-line-strong), var(--color-line-strong)) center / 1px 100% no-repeat;
+}
+
+/* Faint binary-rain / dot-matrix textures, the AgentMail signature. */
+.dotgrid {
+  background-image: radial-gradient(circle at center, #ffffff1f 1px, transparent 1px);
+  background-size: 14px 14px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 78%);
+}
+
+.hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ffffff0a 0 1px,
+    transparent 1px 7px
+  );
+}
+
+/* ------------------------------------------------------------------ effects */
+
+.glow-volt {
+  box-shadow: 0 0 0 1px #d8ff3e2e, 0 0 40px -10px #d8ff3e33;
+}
+
+.fade-b {
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+
+.fade-x {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Backgrounds ease in rather than snapping on when the canvas mounts. */
+.fade-in {
+  animation: fade-in 1.6s ease-out both;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ scrollbars */
+
+pre::-webkit-scrollbar {
+  height: 6px;
+}
+pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+pre::-webkit-scrollbar-thumb {
+  background: #ffffff1a;
+  border-radius: 99px;
+}
+pre {
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff1a transparent;
+}
+
+/* ---------------------------------------------------------------- code tint */
+
+/* Muted on purpose: the code panels should read as part of a monochrome page,
+   not as a rainbow editor theme. */
+.tok-key {
+  color: #a99cd4;
+}
+.tok-str {
+  color: #a9c98c;
+}
+.tok-fn {
+  color: #8fb6d6;
+}
+.tok-num {
+  color: #cfb28c;
+}
+.tok-com {
+  color: #5f5f68;
+}
+.tok-punc {
+  color: #75757e;
+}
+
+@theme inline {
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  --animate-shiny-text: shiny-text 8s infinite;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+}
