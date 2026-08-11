@@ -1,0 +1,46 @@
+{
+  "name": "volt-web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3100",
+    "build": "NEXT_DIST_DIR=.next-prod next build",
+    "start": "NEXT_DIST_DIR=.next-prod next start --port 3100",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "remotion": "remotion studio remotion/index.ts",
+    "remotion:render": "remotion render remotion/index.ts DeployHero out/deploy-hero.mp4"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "dotted-map": "^3.1.0",
+    "geist": "^1.5.1",
+    "motion": "^13.1.0",
+    "next": "^15.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "svg-dotted-map": "^2.1.0",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.507",
+    "@remotion/tailwind-v4": "^4.0.507",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "remotion": "^4.0.507",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.7.2"
+  },
+  "license": "Apache-2.0",
+  "description": "Landing page for Volt \u2014 deployments for LangGraph and LangChain agents.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volt-eq/volt-web.git"
+  },
+  "packageManager": "pnpm@10.15.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
