@@ -1,0 +1,21 @@
+Volt
+Copyright 2026 volt-eq
+
+This product includes software developed by volt-eq.
+
+--------------------------------------------------------------------------------
+
+This project is an independent TypeScript implementation of the server layer
+described by the Aegra project (https://github.com/aegra/aegra), which is
+licensed under the Apache License, Version 2.0. No source code from Aegra is
+included here; the design and the protocol surface it implements informed this
+work, and the acknowledgement is offered in that spirit.
+
+The HTTP surface implemented here is the Agent Protocol, defined by LangChain
+(https://github.com/langchain-ai/agent-protocol). Graph execution, checkpointing
+and the client used in the compatibility tests are provided by the LangGraph
+packages (https://github.com/langchain-ai/langgraphjs), which are separately
+licensed. Those packages are dependencies and are not redistributed here.
+
+This project is not affiliated with, endorsed by, or sponsored by Aegra or
+LangChain.
